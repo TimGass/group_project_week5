@@ -26,7 +26,15 @@
     </script>
     <script type="text/template" id="users">
       <h1>Users Page</h1>
-      <a href="#users/1">userProfile</a>
+
+      <% _.forEach(users, function(user){ %>
+        <div class="user">
+          <a href="#"><%=user.email%></a>
+        </div>
+      <% }) %>
+      <% if(page){ %>
+        <a href="#users/<%=page %>">Load More</a>
+      <% } %>
     </script>
     <script type="text/template" id="userProfile">
       <h1>User Profile Page</h1>
