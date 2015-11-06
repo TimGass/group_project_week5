@@ -10,6 +10,8 @@ var UsersCollection = Backbone.Collection.extend({
 var HeaderView = Backbone.View.extend({
   template: _.template($("#header").html()),
 
+  className: "header",
+
   render: function(){
     this.$el.html(this.template());
     return this;
