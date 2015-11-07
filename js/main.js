@@ -1,5 +1,3 @@
-var tweets = 'https://twitter-pi.herokuapp.com/tweets';
-
 
 var UsersCollection = Backbone.Collection.extend({
     url: 'https://twitter-pi.herokuapp.com/users'
