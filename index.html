@@ -15,18 +15,27 @@
       </figure>
       <h1>homer</h1>
       <!-- this is where we will put the logged in information -->
+      <a href="#login" id="headerLogin">Login</a>
     </script>
     <script type="text/template" id="homepage">
       <h1>Homepage!</h1>
-      <a href="#login">login</a>
+      <a href= <%= statusPath %>><%= loginStatus %></a>
     </script>
     <script type="text/template" id="login">
       <h1>Login Page</h1>
+      <input type="text" placeholder="username@simpsons.com" class="username"/>
+      <input type="password" placeholder="password" class="password"/>
+      <input type="submit" value="Login" class="loginSubmit"/>
       <a href="#register">register</a>
     </script>
     <script type="text/template" id="register">
       <h1>Register Page</h1>
-      <a href="#home">home</a>
+      <input type="text" placeholder="email" class="email"/>
+      <input type="password" placeholder="password" class="password"/>
+      <input type="passwordConfirm" placeholder="confirm password"/>
+      <input type="submit" value="Register"/>
+      <a href="#login">already have an account?</a>
+      <a href="#">home</a>
     </script>
     <script type="text/template" id="home">
       <h1>HOME!</h1>
