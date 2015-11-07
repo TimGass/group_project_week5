@@ -1,11 +1,23 @@
 
 var UsersCollection = Backbone.Collection.extend({
-    url: 'https://twitter-pi.herokuapp.com/users'
+    url: 'https://twitter-pi.herokuapp.com/users?include=tweets'
 });
 
 
 
-var homepageView = Backbone.View.extend({
+var HeaderView = Backbone.View.extend({
+  template: _.template($("#header").html()),
+
+  className: "header",
+
+  render: function(){
+    this.$el.html(this.template());
+    return this;
+  }
+});
+
+
+var HomepageView = Backbone.View.extend({
   template: _.template($("#homepage").html()),
 
   render: function(){
@@ -14,7 +26,7 @@ var homepageView = Backbone.View.extend({
   }
 });
 
-var loginView = Backbone.View.extend({
+var LoginView = Backbone.View.extend({
   template: _.template($("#login").html()),
 
   render: function(){
@@ -23,7 +35,7 @@ var loginView = Backbone.View.extend({
   }
 });
 
-var registerView = Backbone.View.extend({
+var RegisterView = Backbone.View.extend({
   template: _.template($("#register").html()),
 
   render: function(){
@@ -32,7 +44,7 @@ var registerView = Backbone.View.extend({
   }
 });
 
-var homeView = Backbone.View.extend({
+var HomeView = Backbone.View.extend({
   template: _.template($("#home").html()),
 
   render: function(){
@@ -58,7 +70,7 @@ var UsersView = Backbone.View.extend({
   }
 });
 
-var userProfileView = Backbone.View.extend({
+var UserProfileView = Backbone.View.extend({
   template: _.template($("#userProfile").html()),
 
   render: function(){
@@ -68,6 +80,8 @@ var userProfileView = Backbone.View.extend({
 });
 
 var Router = Backbone.Router.extend({
+
+
 
   routes: {
     "": "homepage",
@@ -80,26 +94,50 @@ var Router = Backbone.Router.extend({
   },
 
   homepage: function(){
-    var homepage = new homepageView();
-    $("main").html(homepage.render().$el);
+    $("main").html("");
+
+    var header = new HeaderView();
+    $("main").append(header.render().$el);
+
+    var homepage = new HomepageView();
+    $("main").append(homepage.render().$el);
   },
 
   login: function(){
-    var login = new loginView();
-    $("main").html(login.render().$el);
+    $("main").html("");
+
+    var header = new HeaderView();
+    $("main").append(header.render().$el);
+
+    var login = new LoginView();
+    $("main").append(login.render().$el);
   },
 
   register: function(){
-    var register = new registerView();
-    $("main").html(register.render().$el);
+    $("main").html("");
+
+    var header = new HeaderView();
+    $("main").append(header.render().$el);
+
+    var register = new RegisterView();
+    $("main").append(register.render().$el);
   },
 
   dashboard: function(){
-    var home = new homeView();
-    $("main").html(home.render().$el);
+    $("main").html("");
+
+    var header = new HeaderView();
+    $("main").append(header.render().$el);
+
+    var home = new HomeView();
+    $("main").append(home.render().$el);
   },
 
   users: function(pageId){
+    $("main").html("");
+
+    var header = new HeaderView();
+    $("main").append(header.render().$el);
 
     var collection = new UsersCollection();
     var users = new UsersView({
@@ -109,14 +147,14 @@ var Router = Backbone.Router.extend({
 
     collection.fetch({
       success: function(){
-        $("main").html(users.render().$el);
+        $("main").append(users.render().$el);
       }
     });
   },
 
   userProfile: function(){
     var userId = this.id;
-    var userProfile = new userProfileView();
+    var userProfile = new UserProfileView();
     $("main").html(userProfile.render().$el);
   }
 });

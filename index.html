@@ -2,12 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
     <link rel="stylesheet" href="css/main.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
     <main>
     </main>
+    <script type="text/template" id="header">
+      <figure class="logo">
+        <img src="assets/homer_simpsons.jpg"/>
+      </figure>
+      <h1>homer</h1>
+      <!-- this is where we will put the logged in information -->
+    </script>
     <script type="text/template" id="homepage">
       <h1>Homepage!</h1>
       <a href="#login">login</a>
@@ -26,6 +34,10 @@
     </script>
     <script type="text/template" id="users">
       <h1>Users Page</h1>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8154f30e49ce775da9df7f6b5773c259049e505d
       <% _.forEach(users[0].data, function(user){ %>
         <div class="user">
           <a href="#"><%=user.attributes.email%></a>
