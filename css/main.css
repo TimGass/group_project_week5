@@ -1,0 +1,41 @@
+html {
+  box-sizing: border-box; }
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit; }
+
+body {
+  max-width: 100;
+  margin-left: auto;
+  margin-right: auto; }
+  body::after {
+    clear: both;
+    content: "";
+    display: table; }
+
+main {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%; }
+  main:last-child {
+    margin-right: 0; }
+
+.header {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  background-color: pink;
+  margin-top: 0px; }
+  .header:last-child {
+    margin-right: 0; }
+  .header figure img {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 6.17215%; }
+    .header figure img:last-child {
+      margin-right: 0; }

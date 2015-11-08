@@ -1,0 +1,21 @@
+@import "../bower_components/bourbon/app/assets/stylesheets/bourbon";
+@import "../bower_components/neat/app/assets/stylesheets/neat";
+
+body{
+  @include outer-container(100);
+}
+
+main{
+  @include span-columns(12);
+}
+
+.header{
+@include span-columns(12);
+background-color: pink;
+margin-top: 0px;
+  figure{
+    img{
+      @include span-columns(1);
+    }
+  }
+}
