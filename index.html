@@ -15,11 +15,10 @@
       </figure>
       <h1>homer</h1>
       <!-- this is where we will put the logged in information -->
-      <a href="#login" id="headerLogin">Login</a>
+      <a href= <%= statusPath %>><%= loginStatus %></a>
     </script>
     <script type="text/template" id="homepage">
       <h1>Homepage!</h1>
-      <a href= <%= statusPath %>><%= loginStatus %></a>
     </script>
     <script type="text/template" id="login">
       <h1>Login Page</h1>
@@ -60,6 +59,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/token.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
   </body>
 </html>

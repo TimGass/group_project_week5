@@ -10,7 +10,9 @@ var UsersCollection = Backbone.Collection.extend({
     url: 'https://twitter-pi.herokuapp.com/users?include=tweets'
 });
 
-
+var LoginCollection = Backbone.Collection.extend({
+  url: "https://twitter-pi.herokuapp.com/oauth/token"
+});
 
 var HeaderView = Backbone.View.extend({
   template: _.template($("#header").html()),
@@ -18,8 +20,10 @@ var HeaderView = Backbone.View.extend({
   className: "header",
 
   render: function(){
-    if(logedIn === false)
+    if(logedIn === false){
       loginStatus = "Login";
+      statusPath = "#login";
+    }
     else
     //This is where the logged in User Profile page link will be defined;
       loginStatus = profilePage;
@@ -49,20 +53,23 @@ var LoginView = Backbone.View.extend({
   handleLogin: function(){
     var $this = this;
     this.username = this.$(".username").val();
-
-    console.log(this.collection.toJSON()[0].data[0].attributes.email);
-    console.log(this.username);
+    this.password = this.$(".password").val();
 
     userObject = this.collection.toJSON()[0].data.filter(function(user){
         return (user.attributes.email === $this.username);
     });
 
-    console.log(userObject);
-
     if(userObject.length === 0){
       alert("D'oh!");
     }
-
+    else{
+      var loginCollection = new LoginCollection();
+      loginCollection.create({
+          "grant_type": "password",
+          "username": $this.username,
+          "password": $this.password
+      }, {success: function(data){ token = data.attributes.access_token; addHeader();}, error: function(){alert("Invalid password. Doh!");}});
+    }
   },
 
   handleLoginSubmit: function(){
@@ -128,6 +135,7 @@ var UserProfileView = Backbone.View.extend({
     return this;
   }
 });
+
 
 var Router = Backbone.Router.extend({
 
@@ -208,6 +216,7 @@ var Router = Backbone.Router.extend({
   users: function(pageId){
     $("main").html("");
 
+
     var header = new HeaderView();
     $("main").append(header.render().$el);
 
@@ -230,6 +239,7 @@ var Router = Backbone.Router.extend({
     $("main").html(userProfile.render().$el);
   }
 });
+
 
 var router = new Router();
 
