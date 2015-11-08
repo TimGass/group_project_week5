@@ -50,17 +50,15 @@ var LoginView = Backbone.View.extend({
     var $this = this;
     this.username = this.$(".username").val();
 
-    console.log(this.collection.toJSON()[0].data[0].attributes.email);
-    console.log(this.username);
-
     userObject = this.collection.toJSON()[0].data.filter(function(user){
         return (user.attributes.email === $this.username);
     });
 
-    console.log(userObject);
-
     if(userObject.length === 0){
       alert("D'oh!");
+    }
+    else{
+
     }
 
   },
