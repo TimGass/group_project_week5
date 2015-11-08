@@ -10,32 +10,40 @@
     <main>
     </main>
     <script type="text/template" id="header">
-      <figure class="logo">
-        <img src="assets/homer_simpsons.jpg"/>
-      </figure>
+      <div class="head_left">
+        <div class="logo">
+          <img src="assets/homer_simpsons.jpg"/>
+        </div>
+
       <h1>homer</h1>
+    </div>
       <!-- this is where we will put the logged in information -->
       <a href="#login" id="headerLogin">Login</a>
+      <div class="clear"></div>
     </script>
     <script type="text/template" id="homepage">
       <h1>Homepage!</h1>
       <a href= <%= statusPath %>><%= loginStatus %></a>
     </script>
     <script type="text/template" id="login">
-      <h1>Login Page</h1>
-      <input type="text" placeholder="username@simpsons.com" class="username"/>
-      <input type="password" placeholder="password" class="password"/>
-      <input type="submit" value="Login" class="loginSubmit"/>
-      <a href="#register">register</a>
+      <div class="login">
+        <h1>Login Page</h1>
+        <input type="text" placeholder="username@simpsons.com" class="username"/>
+        <input type="password" placeholder="Password" class="password"/>
+        <input type="submit" value="Login" class="loginSubmit"/>
+        <a href="#register">Register</a>
+      </div>
     </script>
     <script type="text/template" id="register">
-      <h1>Register Page</h1>
-      <input type="text" placeholder="email" class="email"/>
-      <input type="password" placeholder="password" class="password"/>
-      <input type="passwordConfirm" placeholder="confirm password"/>
-      <input type="submit" value="Register"/>
-      <a href="#login">already have an account?</a>
-      <a href="#">home</a>
+      <div class="register">
+        <h1>Register Page</h1>
+        <input type="text" placeholder="Email" class="email"/>
+        <input type="password" placeholder="Password" class="password"/>
+        <input type="passwordConfirm" placeholder="Confirm Password" class="passwordconfirm"/>
+        <input type="submit" value="Register" class="registername"/>
+        <a href="#login">Already have an account?</a>
+        <a href="#">Home</a>
+      </div>
     </script>
     <script type="text/template" id="home">
       <h1>HOME!</h1>
