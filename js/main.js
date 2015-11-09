@@ -6,7 +6,6 @@ var profilePage;
 var userObject;
 var username;
 
-
 var UsersCollection = Backbone.Collection.extend({
     url: 'https://twitter-pi.herokuapp.com/users?include=tweets'
 });
@@ -139,7 +138,7 @@ var HomeView = Backbone.View.extend({
       tweetCollection.create({"tweet": {
         "body": message
   }});
-      $(".message").val();
+      $(".message").val("");
     }
   else{
     alert("Doh!");
