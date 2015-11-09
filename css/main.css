@@ -107,7 +107,8 @@ h1 {
   margin-right: 2.35765%;
   width: 100%;
   background-color: #FDD43D;
-  border-top: 2px solid #207EBE; }
+  border-top: 2px solid #207EBE;
+  height: 100vh; }
   .login:last-child {
     margin-right: 0; }
   .login h1 {
@@ -170,7 +171,8 @@ h1 {
   margin-right: 2.35765%;
   width: 100%;
   background-color: #FDD43D;
-  border-top: 2px solid #207EBE; }
+  border-top: 2px solid #207EBE;
+  height: 100vh; }
   .register:last-child {
     margin-right: 0; }
   .register h1 {

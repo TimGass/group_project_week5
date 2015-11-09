@@ -18,12 +18,11 @@
       <h1>homer</h1>
     </div>
       <!-- this is where we will put the logged in information -->
-      <a href="#login" id="headerLogin">Login</a>
+      <a href= <%= statusPath %> id="headerLogin"><%= loginStatus %></a>
       <div class="clear"></div>
     </script>
     <script type="text/template" id="homepage">
       <h1>Homepage!</h1>
-      <a href= <%= statusPath %>><%= loginStatus %></a>
     </script>
     <script type="text/template" id="login">
       <div class="login">
@@ -46,8 +45,13 @@
       </div>
     </script>
     <script type="text/template" id="home">
-      <h1>HOME!</h1>
-      <a href="#users">users</a>
+      <% _.forEach(users[0].included, function(tweet){ %>
+      <% var id = Number(tweet.relationships.user.data.id) %>
+      <h5><%= users[0].data[id].attributes.email %></h5>
+      <p><%= tweet.attributes.body%></p>
+      <% }) %>
+      <textarea name="tweet" rows="8" cols="40"></textarea>
+      <input type="submit" name="post" class="tweet" value="Tweet!">
     </script>
     <script type="text/template" id="users">
       <h1>Users Page</h1>
@@ -68,6 +72,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
+    <script src="js/token.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
