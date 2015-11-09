@@ -4,6 +4,7 @@ var loginStatus;
 var statusPath;
 var profilePage;
 var userObject;
+var username;
 
 
 var UsersCollection = Backbone.Collection.extend({
@@ -13,6 +14,10 @@ var UsersCollection = Backbone.Collection.extend({
 var LoginCollection = Backbone.Collection.extend({
   url: "https://twitter-pi.herokuapp.com/oauth/token"
 });
+
+var TweetCollection = Backbone.Collection.extend({
+  url: "https://twitter-pi.herokuapp.com/tweets"
+})
 
 var HeaderView = Backbone.View.extend({
   template: _.template($("#header").html()),
@@ -24,9 +29,11 @@ var HeaderView = Backbone.View.extend({
       loginStatus = "Login";
       statusPath = "#login";
     }
-    else
-    //This is where the logged in User Profile page link will be defined;
-      loginStatus = profilePage;
+    else{
+      loginStatus = username;
+      statusPath = "#home";
+    }
+
     this.$el.html(this.template());
     return this;
   }
@@ -52,24 +59,39 @@ var LoginView = Backbone.View.extend({
 
   handleLogin: function(){
     var $this = this;
-    this.username = this.$(".username").val();
+    username = this.$(".username").val();
     this.password = this.$(".password").val();
 
     userObject = this.collection.toJSON()[0].data.filter(function(user){
-        return (user.attributes.email === $this.username);
+        return (user.attributes.email === username);
     });
+
+    console.log(userObject);
 
     if(userObject.length === 0){
       alert("D'oh!");
     }
     else{
-      var loginCollection = new LoginCollection();
-      loginCollection.create({
-          "grant_type": "password",
-          "username": $this.username,
-          "password": $this.password
-      }, {success: function(data){ token = data.attributes.access_token; addHeader();}, error: function(){alert("Invalid password. Doh!");}});
+      if($this.password.trim()){
+        var loginCollection = new LoginCollection();
+        loginCollection.create({
+            "grant_type": "password",
+            "username": username,
+            "password": $this.password
+        },
+        {success: function(data){
+          token = data.attributes.access_token;
+          addToken();
+          logedIn = true;
+          router.navigate("home",
+          {trigger: true});},
+         error: function(){alert("Invalid password. Doh!");}});
+      }
+    else {
+      alert("get a password!");
     }
+  }
+
   },
 
   handleLoginSubmit: function(){
@@ -102,9 +124,19 @@ var RegisterView = Backbone.View.extend({
 var HomeView = Backbone.View.extend({
   template: _.template($("#home").html()),
 
+  events: {"click .tweet" : "post"},
+
   render: function(){
-    this.$el.html(this.template());
+    var users = this.collection.toJSON();
+    this.$el.html(this.template({users: this.collection.toJSON()}));
     return this;
+  },
+
+  post: function(){
+    var tweetCollection = new TweetCollection();
+    tweetCollection.create({"tweet": {
+      "body": "yolo!"
+}});
   }
 });
 
@@ -114,7 +146,6 @@ var UsersView = Backbone.View.extend({
   initialize: function(options){
     // this.listenTo(this.collection, 'fetch', this.render);
     this.pageId = options.pageId;
-    console.log(options);
   },
 
   render: function(){
@@ -122,7 +153,6 @@ var UsersView = Backbone.View.extend({
       page: this.pageId + 1,
       users: this.collection.toJSON()
     }));
-    console.log(this.collection.toJSON());
     return this;
   }
 });
@@ -155,6 +185,7 @@ var Router = Backbone.Router.extend({
     $("main").html("");
 
     var collection = new UsersCollection();
+    console.log(collection.toJSON());
 
     var header = new HeaderView({collection: collection});
     var homepage = new HomepageView();
@@ -206,11 +237,20 @@ var Router = Backbone.Router.extend({
   dashboard: function(){
     $("main").html("");
 
-    var header = new HeaderView();
-    $("main").append(header.render().$el);
+    var collection = new UsersCollection();
 
-    var home = new HomeView();
-    $("main").append(home.render().$el);
+    var header = new HeaderView();
+    var home = new HomeView({collection: collection});
+
+    collection.fetch({
+      success: function(){
+        $("main").append(header.render().$el);
+        $("main").append(home.render().$el);
+      },
+      error: function(){
+        $("main").append("Doh!");
+      }
+    });
   },
 
   users: function(pageId){
