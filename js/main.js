@@ -130,6 +130,7 @@ var RegisterView = Backbone.View.extend({
    var password = $('.password').val();
    var passtest = $('.passwordconfirm').val();
    if( password != passtest ){
+     doh.play();
      alert("D'oh! You're password is whack");
      $('.password').val('');
      $('.passwordconfirm').val('');
