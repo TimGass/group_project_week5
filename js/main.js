@@ -114,12 +114,36 @@ var LoginView = Backbone.View.extend({
 });
 
 var RegisterView = Backbone.View.extend({
-  template: _.template($("#register").html()),
+ template: _.template($("#register").html()),
 
-  render: function(){
-    this.$el.html(this.template());
-    return this;
-  }
+ events: {
+     "click .registername" : "collectRegistration"
+ },
+
+ render: function(){
+   this.$el.html(this.template());
+   return this;
+ },
+
+ collectRegistration: function(){
+   var email = $('.email').val();
+   var password = $('.password').val();
+   var passtest = $('.passwordconfirm').val();
+   if( password != passtest ){
+     alert("D'oh! You're password is whack");
+     $('.password').val('');
+     $('.passwordconfirm').val('');
+   }
+   else {
+       var registrationCollection = new UsersCollection();
+       registrationCollection.create({ "user" :{
+           "email": email,
+           "password": password,
+           "avatar": null
+         }});
+       router.navigate("login", {trigger: true});
+ }
+}
 });
 
 var HomeView = Backbone.View.extend({
