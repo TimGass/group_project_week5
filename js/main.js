@@ -1,5 +1,6 @@
 var tweets = 'https://twitter-pi.herokuapp.com/tweets';
 var logedIn = false;
+var doh = new Audio('sound/Doh 2.mp3');
 var loginStatus;
 var statusPath;
 var profilePage;
@@ -68,6 +69,7 @@ var LoginView = Backbone.View.extend({
     console.log(userObject);
 
     if(userObject.length === 0){
+      doh.play();
       alert("D'oh!");
     }
     else{
@@ -141,6 +143,7 @@ var HomeView = Backbone.View.extend({
       $(".message").val("");
     }
   else{
+    doh.play();
     alert("Doh!");
   }
 }
@@ -255,6 +258,7 @@ var Router = Backbone.Router.extend({
       },
       error: function(){
         $("main").append("Doh!");
+        doh.play();
       }
     });
   },
