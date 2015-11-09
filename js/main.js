@@ -1,5 +1,6 @@
 var tweets = 'https://twitter-pi.herokuapp.com/tweets';
 var logedIn = false;
+var doh = new Audio('sound/Doh 2.mp3');
 var loginStatus;
 var statusPath;
 var profilePage;
@@ -68,6 +69,7 @@ var LoginView = Backbone.View.extend({
     console.log(userObject);
 
     if(userObject.length === 0){
+      doh.play();
       alert("D'oh!");
     }
     else{
@@ -112,12 +114,36 @@ var LoginView = Backbone.View.extend({
 });
 
 var RegisterView = Backbone.View.extend({
-  template: _.template($("#register").html()),
+ template: _.template($("#register").html()),
 
-  render: function(){
-    this.$el.html(this.template());
-    return this;
-  }
+ events: {
+     "click .registername" : "collectRegistration"
+ },
+
+ render: function(){
+   this.$el.html(this.template());
+   return this;
+ },
+
+ collectRegistration: function(){
+   var email = $('.email').val();
+   var password = $('.password').val();
+   var passtest = $('.passwordconfirm').val();
+   if( password != passtest ){
+     alert("D'oh! You're password is whack");
+     $('.password').val('');
+     $('.passwordconfirm').val('');
+   }
+   else {
+       var registrationCollection = new UsersCollection();
+       registrationCollection.create({ "user" :{
+           "email": email,
+           "password": password,
+           "avatar": null
+         }});
+       router.navigate("login", {trigger: true});
+ }
+}
 });
 
 var HomeView = Backbone.View.extend({
@@ -141,6 +167,7 @@ var HomeView = Backbone.View.extend({
       $(".message").val("");
     }
   else{
+    doh.play();
     alert("Doh!");
   }
 }
@@ -255,6 +282,7 @@ var Router = Backbone.Router.extend({
       },
       error: function(){
         $("main").append("Doh!");
+        doh.play();
       }
     });
   },
