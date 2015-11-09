@@ -6,7 +6,6 @@ var profilePage;
 var userObject;
 var username;
 
-
 var UsersCollection = Backbone.Collection.extend({
     url: 'https://twitter-pi.herokuapp.com/users?include=tweets'
 });

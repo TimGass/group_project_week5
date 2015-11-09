@@ -13,7 +13,6 @@
         <div class="logo">
           <img src="assets/homer_simpsons.jpg"/>
         </div>
-
       <h1>homer</h1>
     </div>
       <!-- this is where we will put the logged in information -->
@@ -45,16 +44,16 @@
     </script>
     <script type="text/template" id="home">
       <% _.forEach(users[0].included, function(tweet){ %>
-      <% var id = Number(tweet.relationships.user.data.id) %>
-      <h5><%= users[0].data[id].attributes.email %></h5>
+      <% var userId = Number(tweet.relationships.user.data.id) %>
+      <% console.log(userId) %>
+      <h5><%= users[0].data[userId - 1].attributes.email %></h5>
       <p><%= tweet.attributes.body%></p>
-      <% }) %>
+      <% }); %>
       <textarea name="tweet" rows="8" cols="40" class="message"></textarea>
       <input type="submit" name="post" class="tweet" value="Tweet!">
     </script>
     <script type="text/template" id="users">
       <h1>Users Page</h1>
-
       <% _.forEach(users[0].data, function(user){ %>
         <div class="user">
           <a href="#"><%=user.attributes.email%></a>
