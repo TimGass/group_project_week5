@@ -133,11 +133,18 @@ var HomeView = Backbone.View.extend({
   },
 
   post: function(){
+    var message = $(".message").val();
     var tweetCollection = new TweetCollection();
-    tweetCollection.create({"tweet": {
-      "body": "yolo!"
-}});
+    if(message){
+      tweetCollection.create({"tweet": {
+        "body": message
+  }});
+      $(".message").val();
+    }
+  else{
+    alert("Doh!");
   }
+}
 });
 
 var UsersView = Backbone.View.extend({
