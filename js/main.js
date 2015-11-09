@@ -138,7 +138,7 @@ var HomeView = Backbone.View.extend({
       tweetCollection.create({"tweet": {
         "body": message
   }});
-      $(".message").val();
+      $(".message").val("");
     }
   else{
     alert("Doh!");
