@@ -1,7 +1,8 @@
-var token = <Your actual token goes here>;
-
+var token;
+function addToken(){
 $.ajaxSetup({
-  headers: {
-    
-  }
+headers: {
+  "Authorization": "Bearer " + token
+}
 });
+};
