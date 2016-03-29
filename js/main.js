@@ -8,7 +8,7 @@ var userObject;
 var username;
 
 var UsersCollection = Backbone.Collection.extend({
-    url: 'https://twitter-pi.herokuapp.com/users?include=tweets'
+    url: 'https://twitter-pi.herokuapp.com/users.json?include=tweets'
 });
 
 var LoginCollection = Backbone.Collection.extend({
@@ -16,7 +16,7 @@ var LoginCollection = Backbone.Collection.extend({
 });
 
 var TweetCollection = Backbone.Collection.extend({
-  url: "https://twitter-pi.herokuapp.com/tweets"
+  url: "https://twitter-pi.herokuapp.com/tweets.json"
 })
 
 var HeaderView = Backbone.View.extend({
